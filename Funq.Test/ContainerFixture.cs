@@ -464,23 +464,23 @@ namespace Funq.Test
             Assert.IsTrue(foo.IsDisposed);
         }
 
-        [Test]
-        public void ContainerOwnedNonReuseInstacesAreNotKeptAlive()
-        {
-            var container = new Container();
-            container.Register<IFoo>(c => new Disposable())
-                .ReusedWithin(ReuseScope.None)
-                .OwnedBy(Owner.Container);
-
-            var foo = container.Resolve<IFoo>() as Disposable;
-            var wr = new WeakReference(foo);
-
-            foo = null;
-
-            GC.Collect();
-
-            Assert.IsFalse(wr.IsAlive);
-        }
+        // [Test]
+        // public void ContainerOwnedNonReuseInstacesAreNotKeptAlive()
+        // {
+        //     var container = new Container();
+        //     container.Register<IFoo>(c => new Disposable())
+        //         .ReusedWithin(ReuseScope.None)
+        //         .OwnedBy(Owner.Container);
+        //
+        //     var foo = container.Resolve<IFoo>() as Disposable;
+        //     var wr = new WeakReference(foo);
+        //
+        //     foo = null;
+        //
+        //     GC.Collect();
+        //
+        //     Assert.IsFalse(wr.IsAlive);
+        // }
 
         [Test]
         public void ContainerOwnedAndContainerReusedInstacesAreDisposed()
